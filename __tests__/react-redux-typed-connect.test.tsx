@@ -1,24 +1,27 @@
-import React from "react";
-import {render, Simulate} from "react-testing-library";
-import {PropsOf, typedConnect} from "../src/react-redux-typed-connect";
-import {createStore} from "redux";
-import {Provider} from "react-redux";
+import React from 'react';
+import {render} from 'react-testing-library';
+import {PropsOf, createPropsMapper, typedConnect} from '../src/react-redux-typed-connect';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
 
 type State = {
 	counters: {
 		[name: string]: {count: number};
 	};
 };
-const propsMapper = {
-	fromState: (state: State, ownProps: OwnProps) => ({
+const actions = {
+  incrementByName: (name:string) => ({type: 'INC', name})
+};
+const propsMapper = createPropsMapper({
+  fromState: (state: State, ownProps: {name:string}) => ({
 		count: state.counters[ownProps.name].count
 	}),
-	actions: (ownProps: OwnProps) => ({
+	actions: (ownProps) => ({
 		inc() {  
 			return actions.incrementByName(ownProps.name);
 		}
 	})
-};
+});
 const Counter = ({inc, count}:PropsOf<typeof propsMapper>) => (
 	<button data-testid='test' onClick={inc}>
 		{count}

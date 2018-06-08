@@ -18,6 +18,9 @@ export type PropsOf<T> = T extends PropsMapper<infer StateProps, infer DispatchP
   ? StateProps & DispatchProps & OwnProps
   : never;
 
+export function createPropsMapper<StateProps, DispatchProps, OwnProps, RootState>(propsMapper:PropsMapper<StateProps, DispatchProps, OwnProps, RootState>):PropsMapper<StateProps, DispatchProps, OwnProps, RootState> {
+  return propsMapper;
+}
 export function typedConnect<
   StateProps,
   DispatchProps extends ActionCreatorsMapObject,
