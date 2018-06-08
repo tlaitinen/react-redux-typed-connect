@@ -13,9 +13,12 @@ const actions = {
   incrementByName: (name:string) => ({type: 'INC', name})
 };
 const propsMapper = createPropsMapper({
-  fromState: (state: State, ownProps: {name:string}) => ({
-		count: state.counters[ownProps.name].count
-	}),
+  fromState: (state: State, ownProps: {name:string}) => {
+    return {
+      count: state.counters[ownProps.name]
+	  };
+
+  },
 	actions: (ownProps) => ({
 		inc() {  
 			return actions.incrementByName(ownProps.name);
@@ -47,9 +50,6 @@ test("can render data to react", () => {
     );
 
     const rtl = render(<App />);
-
     const el = rtl.getByTestId('test');
-  console.log(el);
-
     expect(el.innerHTML).toBe('0');
 });
