@@ -15,7 +15,7 @@ const actions = {
 const propsMapper = createPropsMapper({
   fromState: (state: State, ownProps: {name:string}) => {
     return {
-      count: state.counters[ownProps.name]
+      count: state.counters[ownProps.name].count
 	  };
 
   },
@@ -37,7 +37,9 @@ test("can render data to react", () => {
 
     const initialState = {
       counters: {
-        test:0
+        test: {
+          count: 0
+        }
       }
     };
     const store = createStore(s => s, initialState);
