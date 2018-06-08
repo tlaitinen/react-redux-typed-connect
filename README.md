@@ -7,7 +7,11 @@ components.
 Usage
 
 ```ts
-import {PropsOf, typedConnect} from 'react-redux-typed-connect';
+import {
+  createPropsMapper,
+  typedConnect, 
+  PropsOf
+} from 'react-redux-typed-connect';
 import {createStandardAction} from 'typesafe-actions';
 
 interface State {
@@ -20,13 +24,11 @@ const actions = {
   incrementByName: createStandardAction('INC')<string>
 };
 
-type OwnProps = {name:string};
-
-const propsMapper = {
-  fromState: (state: State, ownProps: OwnProps) => ({
+const propsMapper = createPropsMapper({
+  fromState: (state: State, ownProps: {name:string}) => ({
     count: state.counters[ownProps.name].count
   }),
-  actions: (ownProps: OwnProps) => ({
+  actions: (ownProps) => ({
     inc() {  
       return actions.incrementByName(ownProps.name);
     }
