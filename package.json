@@ -33,8 +33,5 @@
   },
   "peerDependencies": {
     "react-redux": "5.x"
-  },
-  "dependencies": {
-    "react-redux": "^5.0.7"
   }
 }
