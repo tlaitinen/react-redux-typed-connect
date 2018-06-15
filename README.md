@@ -21,7 +21,7 @@ interface State {
 }
 
 const actions = {
-  incrementByName: createStandardAction('INC')<string>
+  incrementByName: createStandardAction('INC')<string>()
 };
 
 const propsMapper = createPropsMapper({
@@ -33,7 +33,7 @@ const propsMapper = createPropsMapper({
       return actions.incrementByName(ownProps.name);
     }
   })
-};
+});
 
 const Counter = ({inc, count}:PropsOf<typeof propsMapper>) => (
   <button onClick={inc}>
